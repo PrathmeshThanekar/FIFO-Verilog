@@ -1,84 +1,113 @@
-# Synchronous FIFO Design Using Verilog
+# 8×8 Synchronous FIFO Using Verilog
 
 ## Overview
 
-This project implements a **Synchronous FIFO (First-In First-Out) memory** using Verilog HDL.
+This project implements an **8×8 synchronous FIFO (First-In First-Out)** using Verilog HDL.
 
-The FIFO stores data temporarily and ensures that the **first data written into the FIFO is the first data read out**. The design includes write and read control logic along with `full` and `empty` status flags.
+The FIFO stores up to **8 data words**, with each word being **8 bits wide**. The design was developed and functionally verified using **Xilinx Vivado**.
 
 ## Features
 
-* Synchronous FIFO architecture
-* Parameterizable data width and FIFO depth
-* Separate read and write operations
-* `full` flag to prevent writing when FIFO is full
-* `empty` flag to prevent reading when FIFO is empty
-* Read and write pointer management
-* Verilog testbench for functional verification
-* Simulation using Xilinx Vivado
+* 8-bit data width
+* 8-word storage capacity
+* Synchronous FIFO operation
+* Separate read and write controls
+* `full` and `empty` status flags
+* Reset functionality
+* Supports simultaneous read and write operations
+* Verilog testbench for verification
+* RTL simulation and waveform analysis
 
-## FIFO Operation
+## Project Structure
 
-The FIFO uses:
+```text
+FIFO-Verilog/
+│
+├── README.md
+│
+├── rtl/
+│   ├── FIFO_8x8.v
+│   ├── FIFO_Top.v
+│   ├── Mod_A.v
+│   └── Mod_B.v
+│
+├── testbench/
+│   └── FIFO_tb.v
+│
+└── simulation/
+    ├── FIFO_8x8.png
+    ├── FIFO_Top.png
+    ├── Module_A.png
+    ├── Module_B.png
+    └── waveforms/
+```
 
-* **Write Enable (`wr_en`)** – Enables writing data into the FIFO.
-* **Read Enable (`rd_en`)** – Enables reading data from the FIFO.
-* **Write Pointer** – Points to the location where the next data will be written.
-* **Read Pointer** – Points to the location from which the next data will be read.
-* **Full Flag (`full`)** – Indicates that the FIFO cannot accept more data.
-* **Empty Flag (`empty`)** – Indicates that the FIFO has no data available to read.
+## Module Interface
 
-### Write Operation
+### FIFO_8x8
 
-When `wr_en` is high and the FIFO is not full, input data is stored in the FIFO memory and the write pointer is incremented.
-
-### Read Operation
-
-When `rd_en` is high and the FIFO is not empty, data is read from the FIFO memory and the read pointer is incremented.
+| Signal     | Direction |  Width | Description       |
+| ---------- | --------- | -----: | ----------------- |
+| `clk`      | Input     |  1 bit | Clock             |
+| `rst`      | Input     |  1 bit | Reset             |
+| `wrt_en`   | Input     |  1 bit | Write enable      |
+| `rd_en`    | Input     |  1 bit | Read enable       |
+| `data_in`  | Input     | 8 bits | Input data        |
+| `data_out` | Output    | 8 bits | Output data       |
+| `empty`    | Output    |  1 bit | FIFO empty status |
+| `full`     | Output    |  1 bit | FIFO full status  |
 
 ## Verification
 
-A Verilog testbench was developed to verify the FIFO functionality.
+The FIFO was verified through RTL simulation using **Xilinx Vivado**.
 
-The testbench checks:
+The testbench verifies:
 
-1. Reset operation
-2. Writing data into the FIFO
-3. Reading data from the FIFO
-4. FIFO full condition
-5. FIFO empty condition
-6. Correct FIFO ordering
+* Reset operation
+* Data write operation
+* Data read operation
+* FIFO ordering
+* Full condition
+* Empty condition
+* Simultaneous read and write operation
 
-The simulation waveform can be found in the `simulation` folder.
+### Simulation Result
+
+The waveform demonstrates successful FIFO data transfer while maintaining the **First-In First-Out** property.
+
+Example:
+
+```text
+Write:  00 → 01 → 02 → 03 → 04 → 05 → 06 → 07
+
+Read:   00 → 01 → 02 → 03 → 04 → 05 → 06 → 07
+```
 
 ## Tools Used
 
 * **Verilog HDL**
 * **Xilinx Vivado**
-* **Simulation Waveform**
+* **RTL Simulation**
 
 ## Applications
 
 FIFO memory is commonly used in:
 
 * Data buffering
-* Processor and peripheral communication
-* UART and serial communication
+* UART communication
 * Digital communication systems
-* Clock/data management
-* FPGA-based digital systems
+* Processor and peripheral communication
+* FPGA-based systems
+* Temporary data storage
 
 ## Learning Outcomes
 
-Through this project, I gained practical experience in:
-
 * RTL design using Verilog HDL
+* FIFO implementation
 * Sequential logic design
-* Memory modeling
-* Read/write pointer management
-* FIFO status flag generation
 * Testbench development
-* Functional verification using simulation
+* Functional verification
+* Simulation waveform analysis
 
 ## Author
 
