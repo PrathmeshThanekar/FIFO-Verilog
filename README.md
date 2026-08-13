@@ -17,23 +17,6 @@ The FIFO stores data temporarily and ensures that the **first data written into 
 * Verilog testbench for functional verification
 * Simulation using Xilinx Vivado
 
-## Project Structure
-
-```text
-FIFO-Verilog/
-│
-├── README.md
-│
-├── rtl/
-│   └── FIFO.v
-│
-├── testbench/
-│   └── FIFO_tb.v
-│
-└── simulation/
-    └── fifo_waveform.png
-```
-
 ## FIFO Operation
 
 The FIFO uses:
